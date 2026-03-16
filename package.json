@@ -1,6 +1,6 @@
 {
   "name": "image-organizer",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "图片文件整理工具 - 按分类和时间整理图片并记录到MySQL数据库",
   "main": "electron/main/main.js",
   "scripts": {
