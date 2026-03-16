@@ -62,8 +62,7 @@
             "x64"
           ]
         }
-      ],
-      "icon": "electron/assets/logo.png"
+      ]
     },
     "nsis": {
       "oneClick": false,
