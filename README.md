@@ -36,7 +36,7 @@ npm install
 ### 数据库初始化
 
 ```bash
-mysql -u root -p < database/schema.sql
+mysql -u root -p < database/init.sql
 ```
 
 ## 🚀 使用方式
@@ -45,19 +45,11 @@ mysql -u root -p < database/schema.sql
 
 #### 开发模式
 ```bash
-# 使用脚本（Windows）
-scripts\start-dev.bat
-
-# 或使用命令
 npm run electron:dev
 ```
 
 #### 构建 EXE 安装程序
 ```bash
-# 使用脚本（Windows）
-scripts\build-exe.bat
-
-# 或使用命令
 npm run dist
 ```
 
@@ -108,12 +100,6 @@ npm run organize:dry
 npm run stats
 ```
 
-## 📚 文档
-
-- [快速开始指南](docs/快速开始指南.md) - 详细的使用教程
-- [项目改造总结](docs/项目改造总结.md) - 技术架构说明
-- [Electron 开发文档](docs/ELECTRON_README.md) - 桌面应用开发指南
-
 ## 📁 项目结构
 
 ```
@@ -144,10 +130,6 @@ mossia-setu-util/
 │       └── ICON_README.md   # 图标说明
 ├── dist/                    # 编译输出
 ├── database/                # 数据库脚本
-├── docs/                    # 文档
-├── scripts/                 # 辅助脚本
-│   ├── start-dev.bat        # 开发启动
-│   └── build-exe.bat        # 构建脚本
 ├── logs/                    # 日志文件
 ├── release/                 # 构建产物
 └── package.json             # 项目配置
