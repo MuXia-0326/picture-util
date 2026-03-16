@@ -72,9 +72,9 @@
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
       "shortcutName": "图片整理工具",
-      "installerIcon": "electron/assets/logo.png",
-      "uninstallerIcon": "electron/assets/logo.png",
-      "installerHeaderIcon": "electron/assets/logo.png"
+      "installerIcon": "electron/assets/favicon.ico",
+      "uninstallerIcon": "electron/assets/favicon.ico",
+      "installerHeaderIcon": "electron/assets/favicon.ico"
     }
   }
 }
