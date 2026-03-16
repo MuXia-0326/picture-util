@@ -63,14 +63,18 @@
           ]
         }
       ],
-      "icon": "electron/assets/logo.png"
+      "icon": "electron/assets/logo.png",
+      "artifactName": "${productName}-${version}-Setup.${ext}"
     },
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "shortcutName": "图片整理工具"
+      "shortcutName": "图片整理工具",
+      "installerIcon": "electron/assets/logo.png",
+      "uninstallerIcon": "electron/assets/logo.png",
+      "installerHeaderIcon": "electron/assets/logo.png"
     }
   }
 }
