@@ -1,0 +1,76 @@
+{
+  "name": "image-organizer",
+  "version": "1.0.0",
+  "description": "图片文件整理工具 - 按分类和时间整理图片并记录到MySQL数据库",
+  "main": "electron/main/main.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "organize": "ts-node src/index.ts organize",
+    "organize:move": "ts-node src/index.ts organize --move",
+    "organize:dry": "ts-node src/index.ts organize --dry-run",
+    "stats": "ts-node src/index.ts stats",
+    "watch": "tsc --watch",
+    "clean": "rimraf dist",
+    "electron": "npm run build && electron .",
+    "electron:dev": "electron . --dev",
+    "pack": "npm run build && electron-builder --dir",
+    "dist": "npm run build && electron-builder"
+  },
+  "keywords": [
+    "image",
+    "organizer",
+    "exif",
+    "mysql"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^11.1.0",
+    "dotenv": "^16.3.1",
+    "exif-parser": "^0.1.12",
+    "mysql2": "^3.6.5",
+    "ora": "^5.4.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.5",
+    "electron": "^39.2.7",
+    "electron-builder": "^26.4.0",
+    "rimraf": "^5.0.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "build": {
+    "appId": "com.imageorganizer.app",
+    "productName": "图片整理工具",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "electron/**/*",
+      "dist/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "electron/assets/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "图片整理工具"
+    }
+  }
+}
