@@ -64,7 +64,7 @@
         }
       ],
       "icon": "electron/assets/logo.png",
-      "artifactName": "${productName}-${version}-Setup.${ext}"
+      "artifactName": "image-organizer-${version}-Setup.${ext}"
     },
     "nsis": {
       "oneClick": false,
