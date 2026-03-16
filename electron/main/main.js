@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, dialog } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog, Menu } = require('electron');
 const path = require('path');
 const fs = require('fs').promises;
 
@@ -7,17 +7,30 @@ let configPath = path.join(app.getPath('userData'), 'config.json');
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 900,
-    height: 700,
+    width: 1000,
+    height: 750,
+    minWidth: 800,
+    minHeight: 600,
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
       preload: path.join(__dirname, 'preload.js')
     },
-    icon: path.join(__dirname, '../assets/icon.png')
+    icon: path.join(__dirname, '../assets/logo.png'),
+    backgroundColor: '#667eea',
+    show: false,
+    autoHideMenuBar: true  // 隐藏菜单栏
   });
 
+  // 完全移除菜单栏
+  Menu.setApplicationMenu(null);
+
   mainWindow.loadFile(path.join(__dirname, '../renderer/index.html'));
+
+  // 窗口准备好后再显示，避免闪烁
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show();
+  });
 
   // 开发模式下打开开发者工具
   if (process.env.NODE_ENV === 'development') {

@@ -9,133 +9,130 @@
 <body>
   <div class="container">
     <header>
-      <h1>📸 图片整理工具</h1>
+      <div class="header-logo">
+        <img src="../assets/logo.png" alt="图片整理工具">
+      </div>
+      <h1>图片整理工具</h1>
       <p class="subtitle">按分类和时间整理图片并记录到数据库</p>
     </header>
 
     <div class="tabs">
       <button class="tab-btn active" data-tab="config">配置</button>
-      <button class="tab-btn" data-tab="organize">整理</button>
       <button class="tab-btn" data-tab="stats">统计</button>
     </div>
 
     <!-- 配置标签页 -->
     <div class="tab-content active" id="config-tab">
-      <section class="section">
-        <h2>数据库配置</h2>
-        <div class="form-group">
-          <label>主机地址</label>
-          <input type="text" id="db-host" placeholder="localhost">
-        </div>
-        <div class="form-group">
-          <label>端口</label>
-          <input type="number" id="db-port" placeholder="3306">
-        </div>
-        <div class="form-group">
-          <label>用户名</label>
-          <input type="text" id="db-user" placeholder="root">
-        </div>
-        <div class="form-group">
-          <label>密码</label>
-          <input type="password" id="db-password" placeholder="数据库密码">
-        </div>
-        <div class="form-group">
-          <label>数据库名</label>
-          <input type="text" id="db-database" placeholder="image_organizer">
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>路径配置</h2>
-        <div class="form-group">
-          <label>源目录</label>
-          <div class="input-with-btn">
-            <input type="text" id="source-dir" placeholder="选择源图片目录" readonly>
-            <button class="btn-secondary" id="select-source-btn">浏览</button>
-          </div>
-        </div>
-        <div class="form-group">
-          <label>目标目录</label>
-          <div class="input-with-btn">
-            <input type="text" id="target-dir" placeholder="选择目标整理目录" readonly>
-            <button class="btn-secondary" id="select-target-btn">浏览</button>
-          </div>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>分类配置</h2>
-        <div class="form-group">
-          <label>分类 A 名称</label>
-          <input type="text" id="category-a-name" placeholder="CategoryA">
-        </div>
-        <div class="form-group">
-          <label>分类 A 正则表达式</label>
-          <input type="text" id="category-a-regex" placeholder="例如: ^IMG_.*">
-        </div>
-        <div class="form-group">
-          <label>分类 B 名称</label>
-          <input type="text" id="category-b-name" placeholder="CategoryB">
-        </div>
-        <div class="form-group">
-          <label>分类 B 正则表达式</label>
-          <input type="text" id="category-b-regex" placeholder="例如: ^DSC_.*">
-        </div>
-        <div class="form-group">
-          <label>默认分类</label>
-          <input type="text" id="default-category" placeholder="Other">
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>雪花算法配置</h2>
-        <div class="form-group">
-          <label>Worker ID</label>
-          <input type="number" id="worker-id" placeholder="1" min="0" max="31">
-        </div>
-        <div class="form-group">
-          <label>Datacenter ID</label>
-          <input type="number" id="datacenter-id" placeholder="1" min="0" max="31">
-        </div>
-      </section>
-
-      <div class="button-group">
+      <div class="button-group" style="margin-bottom: 20px;">
         <button class="btn-primary" id="save-config-btn">保存配置</button>
         <button class="btn-secondary" id="load-config-btn">重新加载</button>
       </div>
-    </div>
 
-    <!-- 整理标签页 -->
-    <div class="tab-content" id="organize-tab">
-      <section class="section">
-        <h2>整理选项</h2>
-        <div class="form-group">
-          <label class="checkbox-label">
-            <input type="checkbox" id="move-files">
-            移动文件（删除源文件）
-          </label>
+      <!-- 数据库配置 -->
+      <div class="accordion-item">
+        <div class="accordion-header" data-section="db">
+          <span class="accordion-icon">🗄️</span>
+          <span class="accordion-title">数据库配置</span>
+          <span class="accordion-arrow">▼</span>
         </div>
-        <div class="form-group">
-          <label class="checkbox-label">
-            <input type="checkbox" id="dry-run">
-            试运行模式（不实际操作）
-          </label>
+        <div class="accordion-content" id="accordion-db">
+          <div class="form-group">
+            <label>主机地址</label>
+            <input type="text" id="db-host" placeholder="localhost">
+          </div>
+          <div class="form-group">
+            <label>端口</label>
+            <input type="number" id="db-port" placeholder="3306">
+          </div>
+          <div class="form-group">
+            <label>用户名</label>
+            <input type="text" id="db-user" placeholder="root">
+          </div>
+          <div class="form-group">
+            <label>密码</label>
+            <input type="password" id="db-password" placeholder="数据库密码">
+          </div>
+          <div class="form-group">
+            <label>数据库名</label>
+            <input type="text" id="db-database" placeholder="image_organizer">
+          </div>
         </div>
-      </section>
-
-      <div class="button-group">
-        <button class="btn-primary btn-large" id="start-organize-btn">开始整理</button>
       </div>
 
-      <section class="section">
-        <h2>执行日志</h2>
-        <div id="log-container" class="log-container"></div>
-      </section>
+      <!-- 路径配置 -->
+      <div class="accordion-item">
+        <div class="accordion-header" data-section="paths">
+          <span class="accordion-icon">📁</span>
+          <span class="accordion-title">路径配置</span>
+          <span class="accordion-arrow">▼</span>
+        </div>
+        <div class="accordion-content" id="accordion-paths">
+          <div class="form-group">
+            <label>源目录</label>
+            <div class="input-with-btn">
+              <input type="text" id="source-dir" placeholder="选择源图片目录" readonly>
+              <button class="btn-secondary" id="select-source-btn">浏览</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>目标目录</label>
+            <div class="input-with-btn">
+              <input type="text" id="target-dir" placeholder="选择目标整理目录" readonly>
+              <button class="btn-secondary" id="select-target-btn">浏览</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <section class="section" id="summary-section" style="display: none;">
-        <h2>处理摘要</h2>
-        <div id="summary-content"></div>
-      </section>
+      <!-- 分类配置 -->
+      <div class="accordion-item">
+        <div class="accordion-header" data-section="categories">
+          <span class="accordion-icon">🏷️</span>
+          <span class="accordion-title">分类配置</span>
+          <span class="accordion-arrow">▼</span>
+        </div>
+        <div class="accordion-content" id="accordion-categories">
+          <div class="form-group">
+            <label>分类 A 名称</label>
+            <input type="text" id="category-a-name" placeholder="CategoryA">
+          </div>
+          <div class="form-group">
+            <label>分类 A 正则表达式</label>
+            <input type="text" id="category-a-regex" placeholder="例如: ^IMG_.*">
+          </div>
+          <div class="form-group">
+            <label>分类 B 名称</label>
+            <input type="text" id="category-b-name" placeholder="CategoryB">
+          </div>
+          <div class="form-group">
+            <label>分类 B 正则表达式</label>
+            <input type="text" id="category-b-regex" placeholder="例如: ^DSC_.*">
+          </div>
+          <div class="form-group">
+            <label>默认分类</label>
+            <input type="text" id="default-category" placeholder="Other">
+          </div>
+        </div>
+      </div>
+
+      <!-- 雪花算法配置 -->
+      <div class="accordion-item">
+        <div class="accordion-header" data-section="snowflake">
+          <span class="accordion-icon">❄️</span>
+          <span class="accordion-title">雪花算法配置</span>
+          <span class="accordion-arrow">▼</span>
+        </div>
+        <div class="accordion-content" id="accordion-snowflake">
+          <div class="form-group">
+            <label>Worker ID</label>
+            <input type="number" id="worker-id" placeholder="1" min="0" max="31">
+          </div>
+          <div class="form-group">
+            <label>Datacenter ID</label>
+            <input type="number" id="datacenter-id" placeholder="1" min="0" max="31">
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- 统计标签页 -->
@@ -147,6 +144,46 @@
           <p class="placeholder">点击"刷新统计"按钮获取数据</p>
         </div>
       </section>
+    </div>
+  </div>
+
+  <!-- 固定底部操作栏 -->
+  <div class="fixed-action-bar">
+    <div class="action-bar-content">
+      <div class="action-options">
+        <label class="checkbox-label-inline">
+          <input type="checkbox" id="move-files-fixed">
+          <span>移动文件</span>
+        </label>
+        <label class="checkbox-label-inline">
+          <input type="checkbox" id="dry-run-fixed">
+          <span>试运行</span>
+        </label>
+      </div>
+      <button class="btn-action" id="start-organize-btn">
+        <span class="btn-icon">🚀</span>
+        <span class="btn-text">开始整理</span>
+      </button>
+      <button class="btn-log-toggle" id="toggle-log-btn" title="显示/隐藏日志">
+        <span class="log-icon">📋</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- 日志弹窗 -->
+  <div class="log-modal" id="log-modal">
+    <div class="log-modal-content">
+      <div class="log-modal-header">
+        <h3>执行日志</h3>
+        <button class="log-close-btn" id="close-log-btn">✕</button>
+      </div>
+      <div class="log-modal-body">
+        <div id="log-container" class="log-container"></div>
+      </div>
+      <div class="log-modal-footer" id="summary-section" style="display: none;">
+        <h4>处理摘要</h4>
+        <div id="summary-content"></div>
+      </div>
     </div>
   </div>
 

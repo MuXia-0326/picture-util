@@ -15,6 +15,29 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
   });
 });
 
+// 折叠面板功能
+document.querySelectorAll('.accordion-header').forEach(header => {
+  header.addEventListener('click', () => {
+    const section = header.dataset.section;
+    const content = document.getElementById(`accordion-${section}`);
+    const isActive = header.classList.contains('active');
+
+    // 关闭所有面板
+    document.querySelectorAll('.accordion-header').forEach(h => {
+      h.classList.remove('active');
+    });
+    document.querySelectorAll('.accordion-content').forEach(c => {
+      c.classList.remove('active');
+    });
+
+    // 如果当前面板不是激活状态，则打开它
+    if (!isActive) {
+      header.classList.add('active');
+      content.classList.add('active');
+    }
+  });
+});
+
 // 配置相关
 let currentConfig = null;
 
@@ -129,6 +152,31 @@ const startOrganizeBtn = document.getElementById('start-organize-btn');
 const summarySection = document.getElementById('summary-section');
 const summaryContent = document.getElementById('summary-content');
 
+// 日志弹窗控制
+const logModal = document.getElementById('log-modal');
+const toggleLogBtn = document.getElementById('toggle-log-btn');
+const closeLogBtn = document.getElementById('close-log-btn');
+
+// 显示/隐藏日志弹窗
+toggleLogBtn.addEventListener('click', () => {
+  logModal.classList.toggle('active');
+});
+
+closeLogBtn.addEventListener('click', () => {
+  logModal.classList.remove('active');
+});
+
+// 点击弹窗背景关闭
+logModal.addEventListener('click', (e) => {
+  if (e.target === logModal) {
+    logModal.classList.remove('active');
+  }
+});
+
+// 获取复选框
+const moveFilesFixed = document.getElementById('move-files-fixed');
+const dryRunFixed = document.getElementById('dry-run-fixed');
+
 // 添加日志
 function addLog(message, type = 'info') {
   const entry = document.createElement('div');
@@ -155,6 +203,9 @@ startOrganizeBtn.addEventListener('click', async () => {
     clearLog();
     summarySection.style.display = 'none';
 
+    // 打开日志弹窗
+    logModal.classList.add('active');
+
     // 获取当前配置
     const config = getConfigFromForm();
 
@@ -169,13 +220,15 @@ startOrganizeBtn.addEventListener('click', async () => {
       return;
     }
 
-    // 获取选项
-    const moveFiles = document.getElementById('move-files').checked;
-    const dryRun = document.getElementById('dry-run').checked;
+    // 获取选项（从固定栏获取）
+    const moveFiles = moveFilesFixed.checked;
+    const dryRun = dryRunFixed.checked;
 
     // 禁用按钮
     startOrganizeBtn.disabled = true;
-    startOrganizeBtn.textContent = '整理中...';
+    const btnText = startOrganizeBtn.querySelector('.btn-text');
+    const originalText = btnText.textContent;
+    btnText.textContent = '整理中...';
 
     addLog('开始整理任务...', 'info');
 
@@ -216,7 +269,8 @@ startOrganizeBtn.addEventListener('click', async () => {
   } finally {
     // 恢复按钮
     startOrganizeBtn.disabled = false;
-    startOrganizeBtn.textContent = '开始整理';
+    const btnText = startOrganizeBtn.querySelector('.btn-text');
+    btnText.textContent = '开始整理';
   }
 });
 

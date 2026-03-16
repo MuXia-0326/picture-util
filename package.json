@@ -63,7 +63,7 @@
           ]
         }
       ],
-      "icon": "electron/assets/icon.ico"
+      "icon": "electron/assets/logo.png"
     },
     "nsis": {
       "oneClick": false,
