@@ -309,7 +309,11 @@ async fn load_config(app: AppHandle, state: State<'_, BackendState>) -> Result<V
 }
 
 #[tauri::command]
-async fn save_config(app: AppHandle, state: State<'_, BackendState>, config: Value) -> Value {
+async fn save_config(
+    app: AppHandle,
+    state: State<'_, BackendState>,
+    config: Value,
+) -> Result<Value, String> {
     let _lock = state.config_lock.lock().await;
     let save = async {
         let path = app
@@ -325,10 +329,10 @@ async fn save_config(app: AppHandle, state: State<'_, BackendState>, config: Val
         write_config(&path, &config, false)
     }
     .await;
-    match save {
+    Ok(match save {
         Ok(()) => json!({ "success": true }),
         Err(error) => failure(error),
-    }
+    })
 }
 
 #[tauri::command]
@@ -353,32 +357,38 @@ async fn select_directory(app: AppHandle, title: Option<String>) -> Result<Optio
 }
 
 #[tauri::command]
-async fn organize_images(app: AppHandle, state: State<'_, BackendState>, options: Value) -> Value {
+async fn organize_images(
+    app: AppHandle,
+    state: State<'_, BackendState>,
+    options: Value,
+) -> Result<Value, String> {
     if state
         .organizing
         .compare_exchange(false, true, Ordering::SeqCst, Ordering::SeqCst)
         .is_err()
     {
-        return failure("已有整理任务正在运行");
+        return Ok(failure("已有整理任务正在运行"));
     }
     let _guard = JobGuard(state.organizing.clone());
-    match worker(
-        &app,
-        json!({ "operation": "organize", "options": options }),
-        true,
+    Ok(
+        match worker(
+            &app,
+            json!({ "operation": "organize", "options": options }),
+            true,
+        )
+        .await
+        {
+            Ok(result) => result,
+            Err(error) => {
+                let _ = app.emit_to(
+                    "main",
+                    "organize-progress",
+                    json!({ "type": "error", "message": &error }),
+                );
+                failure(error)
+            }
+        },
     )
-    .await
-    {
-        Ok(result) => result,
-        Err(error) => {
-            let _ = app.emit_to(
-                "main",
-                "organize-progress",
-                json!({ "type": "error", "message": &error }),
-            );
-            failure(error)
-        }
-    }
 }
 
 #[tauri::command]
