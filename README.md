@@ -1,8 +1,10 @@
-# 图片整理工具 / Image Organizer
+# PhotoHarbor · 照片港湾
 
 <div align="center">
 
-**一个功能强大的图片文件整理工具，支持命令行和桌面GUI两种模式**
+<img src="web/assets/photoharbor.svg" width="96" height="96" alt="PhotoHarbor Logo">
+
+**给每一张照片一个有序的港湾，支持命令行和桌面 GUI 两种模式**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js](https://img.shields.io/badge/Node.js-22+-green.svg)](https://nodejs.org/)
@@ -66,7 +68,11 @@ npm run desktop:build
 npm run dist
 ```
 
-安装程序输出到 `src-tauri/target/release/bundle/nsis/`，仅构建未安装应用可运行 `npm run pack`。
+安装程序输出到 `src-tauri/target/release/bundle/nsis/`，文件名使用 `PhotoHarbor_<版本>_x64-setup.exe`，安装及卸载界面统一使用英文。仅构建未安装应用可运行 `npm run pack`。
+
+默认按当前用户安装，无需管理员权限，默认安装文件夹为 `%LOCALAPPDATA%\PhotoHarbor`，快捷方式与应用名称均为 `PhotoHarbor`。安装文件夹名称为英文，但 Windows 用户名可能包含中文；需要完整英文路径时，可在安装时选择例如 `D:\Apps\PhotoHarbor`。PhotoHarbor 后续升级会沿用此前选择的安装位置。由旧中文名称版本迁移时，请先备份配置，再卸载旧版并安装 PhotoHarbor，避免两套程序与快捷方式并存；卸载旧版时不要选择删除应用数据；应用配置目录保持不变，不主动删除历史配置。
+
+品牌名称取自 Photo + Harbor，意为「照片港湾」。应用图标、安装图标和页面 Logo 使用同一套照片与港湾图形，矢量源文件位于 `web/assets/photoharbor.svg`，可通过 `python scripts/generate-icons.py` 使用 Pillow 重新生成图标。
 
 #### 桌面工作台
 
@@ -138,8 +144,7 @@ picture-util/
 │   └── index.ts              # CLI 入口
 ├── web/                      # 原生 HTML/CSS/JS 桌面工作台
 ├── src-tauri/                # Tauri Rust 入口与权限配置
-├── scripts/                  # 独立处理进程打包脚本
-├── electron/                 # 旧版源码与图标资源归档，不参与桌面启动
+├── scripts/                  # 独立处理进程打包与品牌图标生成
 ├── database/                 # 数据库初始化脚本
 ├── dist/                     # TypeScript 与 sidecar 中间产物
 └── package.json              # CLI 与桌面构建命令

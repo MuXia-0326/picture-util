@@ -113,23 +113,18 @@ main:focus { outline: none; }
   align-items: center;
   gap: 10px;
   color: #f5f8f5;
-  font-size: 25px;
+  font-size: 19px;
   font-weight: 650;
   padding: 0 5px 41px;
-  letter-spacing: 3px;
+  letter-spacing: -.6px;
 }
 .brand-mark {
-  display: grid;
-  place-items: center;
+  display: block;
   width: 42px;
-  height: 45px;
-  border-radius: 11px;
-  background: #a0d9bd;
-  color: #183d31;
-  box-shadow: 3px -3px 0 #a0d9bd22;
+  height: 42px;
   flex-shrink: 0;
 }
-.brand-mark .icon { width: 27px; height: 27px; }
+.brand-wordmark { min-width: 0; white-space: nowrap; }
 .brand-caption {
   display: block;
   font-size: 10px;
@@ -433,8 +428,8 @@ dialog p { font-size: 13px; color: var(--muted); line-height: 1.9; white-space: 
 @media (max-width: 1190px) {
   .app-shell { grid-template-columns: 180px minmax(0, 1fr); }
   .sidebar { padding: 28px 13px 16px; }
-  .brand { padding-left: 7px; gap: 10px; font-size: 23px; }
-  .brand-mark { width: 37px; height: 41px; }
+  .brand { padding-left: 0; gap: 8px; font-size: 15px; }
+  .brand-mark { width: 37px; height: 37px; }
   .brand-caption { font-size: 9px; letter-spacing: .2px; }
   .sidebar-note { margin-left: 6px; margin-right: 6px; }
   main { padding: 27px 26px 0; }
@@ -490,7 +485,7 @@ dialog p { font-size: 13px; color: var(--muted); line-height: 1.9; white-space: 
   .sidebar { padding: 26px 11px 17px; align-items: center; }
   .brand { padding: 0 0 35px; }
   .brand > span:last-child, .nav-label, .nav-item > span, .sidebar-note, .sidebar-footer { display: none; }
-  .brand-mark { width: 39px; height: 42px; }
+  .brand-mark { width: 39px; height: 39px; }
   .sidebar nav { width: 100%; }
   .nav-item { justify-content: center; padding: 12px; min-height: 48px; }
   .nav-item .icon { width: 21px; height: 21px; }
@@ -553,8 +548,7 @@ dialog p { font-size: 13px; color: var(--muted); line-height: 1.9; white-space: 
   .app-shell { display: block; }
   .sidebar { height: 68px; position: relative; padding: 12px 17px; flex-direction: row; justify-content: space-between; gap: 10px; }
   .brand { padding: 0; }
-  .brand-mark { width: 34px; height: 37px; }
-  .brand-mark .icon { width: 24px; height: 24px; }
+  .brand-mark { width: 34px; height: 34px; }
   .sidebar nav { width: auto; display: flex; gap: 4px; }
   .nav-item { width: auto; margin: 0; min-height: 41px; padding: 9px; gap: 7px; font-size: 12px; }
   .nav-item > span { display: inline; }

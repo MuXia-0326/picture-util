@@ -1,6 +1,6 @@
 (() => {
   'use strict';
-  const desktopOnly = '此功能仅在拾光桌面应用中可用，浏览器预览不会读取或修改本地文件';
+  const desktopOnly = '此功能仅在 PhotoHarbor 桌面应用中可用，浏览器预览不会读取或修改本地文件';
   function nativeAPI() {
     const api = window.__TAURI__;
     if (!api || typeof api.core?.invoke !== 'function') throw new Error(desktopOnly);

@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="color-scheme" content="light">
-  <title>拾光 · 图片整理工作台</title>
+  <title>PhotoHarbor · 图片整理工作台</title>
+  <link rel="icon" type="image/svg+xml" href="assets/photoharbor.svg">
   <link rel="stylesheet" href="styles.css">
   <script src="bridge.js" defer></script>
   <script src="app.js" defer></script>
@@ -30,7 +31,7 @@
 </defs></svg>
 <div class="app-shell">
   <aside class="sidebar" aria-label="应用导航">
-    <a href="#config" class="brand" aria-label="拾光首页"><span class="brand-mark"><svg aria-hidden="true" class="icon"><use href="#i-photo"/></svg></span><span>拾光<span class="brand-caption">PHOTO ORGANIZER</span></span></a>
+    <a href="#config" class="brand" aria-label="PhotoHarbor 首页"><img class="brand-mark" src="assets/photoharbor.svg" alt="" width="42" height="42"><span class="brand-wordmark">PhotoHarbor<span class="brand-caption">照片港湾 · 有序珍藏</span></span></a>
     <div class="nav-label">工作空间</div>
     <nav>
       <button class="nav-item active" data-tab="config" aria-label="整理工作台" aria-current="page"><svg aria-hidden="true" class="icon"><use href="#i-grid"/></svg><span>整理工作台</span><span class="nav-dot"></span></button>
@@ -73,7 +74,7 @@
         <section class="action-bar" aria-label="执行整理"><div class="action-options"><label class="toggle-option"><input id="dry-run-fixed" type="checkbox" checked><span class="toggle-track" aria-hidden="true"></span><span><strong>试运行</strong><small>仅预览，不修改文件</small></span><span class="badge">推荐</span></label><span class="action-divider"></span><label class="move-option"><input id="move-files-fixed" type="checkbox"><span><strong>移动文件</strong><small>完成后删除源文件，请谨慎开启</small></span></label></div><button id="start-organize-btn" type="button" class="button primary" data-native><svg aria-hidden="true" class="icon"><use href="#i-play"/></svg><span class="btn-text">开始试运行</span><svg aria-hidden="true" class="icon"><use href="#i-arrow"/></svg></button></section>
       </section>
       <section id="stats-tab" aria-label="图库统计" hidden><div class="card stats-card"><div class="section-heading"><div class="heading-icon"><svg aria-hidden="true" class="icon"><use href="#i-chart"/></svg></div><div><h2>数据库中的照片</h2><p>统计来自当前数据库连接，不包含未入库的文件</p></div><button id="refresh-stats-btn" class="button secondary" data-native><svg aria-hidden="true" class="icon"><use href="#i-refresh"/></svg><span>刷新统计</span></button></div><div id="stats-container" class="stats-container" role="status" aria-live="polite"><div class="stats-empty"><svg aria-hidden="true" class="icon"><use href="#i-chart"/></svg><h3>还未读取图库数据</h3><p>请先在整理工作台配置数据库，再刷新统计</p></div></div></div></section>
-      <footer class="page-footer"><span>拾光 · 图片整理工具</span><span>少一点杂乱，多一点井然</span></footer>
+      <footer class="page-footer"><span>PhotoHarbor · 照片港湾</span><span>少一点杂乱，多一点井然</span></footer>
     </main>
   </div>
 </div>

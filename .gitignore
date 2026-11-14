@@ -3,7 +3,6 @@ node_modules/
 
 # Build output
 dist/
-release/
 
 # Environment variables
 .env
@@ -22,10 +21,6 @@ npm-debug.log*
 # OS
 .DS_Store
 Thumbs.db
-
-# Electron
-electron/assets/icon.png
-electron/assets/icon.ico
 
 # Tauri build artifacts
 src-tauri/target/

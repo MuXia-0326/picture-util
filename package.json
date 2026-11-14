@@ -1,7 +1,7 @@
 {
-  "name": "image-organizer",
-  "version": "1.2.1",
-  "description": "图片文件整理工具 - 按分类和时间整理图片并记录到MySQL数据库",
+  "name": "photoharbor",
+  "version": "1.0.0",
+  "description": "PhotoHarbor - Organize photos by category and date with MySQL indexing",
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",

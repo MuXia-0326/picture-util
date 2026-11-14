@@ -25,7 +25,7 @@ async function main() {
     target: 'node22', sourcemap: false, legalComments: 'none',
     define: { 'process.env.DEBUG': '"false"' },
   });
-  // 独立生成入口，打包器不会将项目元数据中的 Electron 配置带入工作进程
+  // 独立入口避免打包器将项目元数据解释为工作进程的打包配置
   await fs.copyFile(worker, bundled);
   const output = path.join(binariesDir, `image-worker-${host}${process.platform === 'win32' ? '.exe' : ''}`);
   await exec([bundled, '--target', `node22-${platform}-${process.arch}`, '--output', output,
