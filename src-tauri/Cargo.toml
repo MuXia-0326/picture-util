@@ -1,6 +1,6 @@
 [package]
 name = "image-organizer-desktop"
-version = "1.2.0"
+version = "1.2.1"
 description = "图片整理工具桌面后端"
 edition = "2021"
 rust-version = "1.90"
