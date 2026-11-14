@@ -5,8 +5,8 @@
 **一个功能强大的图片文件整理工具，支持命令行和桌面GUI两种模式**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Node.js](https://img.shields.io/badge/Node.js-18+-green.svg)](https://nodejs.org/)
-[![Electron](https://img.shields.io/badge/Electron-39+-blue.svg)](https://www.electronjs.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-22+-green.svg)](https://nodejs.org/)
+[![Tauri](https://img.shields.io/badge/Tauri-2-blue.svg)](https://v2.tauri.app/)
 
 </div>
 
@@ -43,17 +43,43 @@ mysql -u root -p < database/init.sql
 
 ### 方式一：桌面应用（推荐）
 
+#### 环境要求
+
+- 开发机：Node.js 22+、Rust 1.90+（推荐 stable）和 Cargo
+- Windows：安装 Visual Studio Build Tools，启用“使用 C++ 的桌面开发”和 Windows SDK
+- 运行时：Windows 10/11 + WebView2，安装程序会在缺少 WebView2 时引导安装
+- 已安装的应用无需额外安装 Node.js，图片处理进程会随安装程序打包
+
 #### 开发模式
+
 ```bash
-npm run electron:dev
+npm run desktop:dev
 ```
 
+Tauri 会先打包图片处理 sidecar，再打开本地工作台；首次构建需要下载 Rust crates 和 Node 打包运行时。
+
 #### 构建 EXE 安装程序
+
 ```bash
+npm run desktop:build
+# 兼容入口
 npm run dist
 ```
 
-安装程序将生成在 `release` 目录中。
+安装程序输出到 `src-tauri/target/release/bundle/nsis/`，仅构建未安装应用可运行 `npm run pack`。
+
+#### 桌面工作台
+
+1. 选择源目录和目标目录，目录不能相同或互相包含
+2. 配置分类名称、正则表达式和 MySQL 连接
+3. 默认使用复制模式并开启试运行，先检查任务日志再关闭试运行执行
+4. 移动模式会在复制并成功记录数据库后删除源文件，需要二次确认
+5. 统计页面按需读取数据库，不显示模拟数据
+
+配置保存在 Tauri 应用配置目录（Windows 为 `%APPDATA%\com.imageorganizer.app\config.json`），首次启动仅在新配置不存在时尝试导入旧 Electron 配置；已有配置损坏时会报告错误，不会静默覆盖。密码仍保存在本地配置文件中，请妥善保护当前系统账户。命令行模式继续使用 `.env`，与桌面配置相互独立。
+
+桌面采用 Tauri 2 + 系统 WebView，Rust 负责配置、原生目录对话框和受限任务调用；图片处理使用独立打包的 Node sidecar，复用 TypeScript 服务，不在页面开放任意文件或 Shell 权限。
+
 
 ### 方式二：命令行模式
 
@@ -103,36 +129,20 @@ npm run stats
 ## 📁 项目结构
 
 ```
-mossia-setu-util/
-├── src/                      # TypeScript 源码
-│   ├── config/              # 配置管理
-│   ├── services/            # 业务服务
-│   │   ├── scanner.ts       # 文件扫描
-│   │   ├── classifier.ts    # 文件分类
-│   │   ├── database.ts      # 数据库操作
-│   │   └── organizer.ts     # 文件整理
-│   ├── utils/               # 工具函数
-│   │   ├── snowflake.ts     # ID 生成器
-│   │   ├── hash.ts          # 哈希计算
-│   │   └── logger.ts        # 日志工具
-│   ├── types/               # 类型定义
-│   └── index.ts             # CLI 入口
-├── electron/                # Electron 应用
-│   ├── main/                # 主进程
-│   │   ├── main.js          # 主入口
-│   │   ├── preload.js       # 预加载脚本
-│   │   └── organize-task.js # 任务封装
-│   ├── renderer/            # 渲染进程（界面）
-│   │   ├── index.html       # 主界面
-│   │   ├── styles.css       # 样式
-│   │   └── renderer.js      # 交互逻辑
-│   └── assets/              # 资源文件
-│       └── ICON_README.md   # 图标说明
-├── dist/                    # 编译输出
-├── database/                # 数据库脚本
-├── logs/                    # 日志文件
-├── release/                 # 构建产物
-└── package.json             # 项目配置
+picture-util/
+├── src/                      # TypeScript 服务与 CLI
+│   ├── desktop/              # 桌面任务与 stdin/stdout 协议
+│   ├── config/               # CLI 环境变量配置
+│   ├── services/             # 扫描、分类、数据库、文件整理
+│   ├── utils/                # ID、哈希与日志
+│   └── index.ts              # CLI 入口
+├── web/                      # 原生 HTML/CSS/JS 桌面工作台
+├── src-tauri/                # Tauri Rust 入口与权限配置
+├── scripts/                  # 独立处理进程打包脚本
+├── electron/                 # 旧版源码与图标资源归档，不参与桌面启动
+├── database/                 # 数据库初始化脚本
+├── dist/                     # TypeScript 与 sidecar 中间产物
+└── package.json              # CLI 与桌面构建命令
 ```
 
 ## 🎯 分类规则
@@ -219,7 +229,8 @@ npm run clean
 
 ### 构建 EXE 失败
 - 确保已安装所有依赖
-- 检查网络连接（首次构建需下载 Electron）
+- 检查 Rust、MSVC 和 Windows SDK 是否安装完整
+- 检查网络连接（首次构建需下载 Rust crates 和 sidecar 运行时）
 - 尝试删除 `node_modules` 后重新安装
 
 ## 📄 许可证

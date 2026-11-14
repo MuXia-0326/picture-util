@@ -27,5 +27,10 @@ Thumbs.db
 electron/assets/icon.png
 electron/assets/icon.ico
 
+# Tauri build artifacts
+src-tauri/target/
+src-tauri/gen/
+src-tauri/binaries/
+
 # Claude
 .claude/

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light">
+  <title>拾光 · 图片整理工作台</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="bridge.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main-content">跳转到主要内容</a>
+<svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+  <symbol id="i-photo" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m3 16 5-5 4 4 3-3 6 6"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 3v17h17M9 15v-4m5 4V6m5 9v-6"/></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h5l3 3h6a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z"/><path d="M3 9h18"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 8 9 8 9s8-4 8-9V6l-8-3Z"/><path d="m8 12 3 3 5-6"/></symbol>
+  <symbol id="i-save" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h12l4 4v12a2 2 0 0 1-2 2Z"/><path d="M7 3v6h10V3M7 21v-8h10v8"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M6.1 7a7 7 0 0 1 11.6-1L20 9M4 15l2.3 3A7 7 0 0 0 18 17"/></symbol>
+  <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h5m4 0h7M4 17h9m4 0h3"/><circle cx="11" cy="7" r="2"/><circle cx="15" cy="17" r="2"/></symbol>
+  <symbol id="i-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></symbol>
+  <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="m8 5 11 7-11 7V5Z"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v1"/></symbol>
+  <symbol id="i-terminal" viewBox="0 0 24 24"><path d="m4 6 6 6-6 6m9 0h7"/></symbol>
+</defs></svg>
+<div class="app-shell">
+  <aside class="sidebar" aria-label="应用导航">
+    <a href="#config" class="brand" aria-label="拾光首页"><span class="brand-mark"><svg aria-hidden="true" class="icon"><use href="#i-photo"/></svg></span><span>拾光<span class="brand-caption">PHOTO ORGANIZER</span></span></a>
+    <div class="nav-label">工作空间</div>
+    <nav>
+      <button class="nav-item active" data-tab="config" aria-label="整理工作台" aria-current="page"><svg aria-hidden="true" class="icon"><use href="#i-grid"/></svg><span>整理工作台</span><span class="nav-dot"></span></button>
+      <button class="nav-item" data-tab="stats" aria-label="图库统计"><svg aria-hidden="true" class="icon"><use href="#i-chart"/></svg><span>图库统计</span></button>
+    </nav>
+    <div class="sidebar-note"><svg aria-hidden="true" class="icon"><use href="#i-shield"/></svg><strong>让每一张照片，各归其位</strong><p>按分类与时间有序归档<br>重要回忆，始终井井有条</p></div>
+    <div class="sidebar-footer"><span class="connection-dot"></span><span id="runtime-label">正在检查运行环境</span><span class="local-tag">LOCAL</span></div>
+  </aside>
+  <div class="workspace">
+    <header class="topbar"><div class="breadcrumb">工作空间 <svg aria-hidden="true" class="icon"><use href="#i-chevron"/></svg><span id="breadcrumb-current">整理工作台</span></div><span class="privacy-note"><svg aria-hidden="true" class="icon"><use href="#i-shield"/></svg>照片在本地处理</span></header>
+    <main id="main-content" tabindex="-1">
+      <div class="page-heading"><div><div class="eyebrow">YOUR PHOTO WORKSPACE</div><h1 id="page-title">把零散照片，整理成时光</h1><p id="page-description">选好目录，设定规则，让每一段回忆都有自己的位置</p></div><div class="header-actions" id="config-actions"><span id="save-state" class="save-state" role="status">正在加载配置</span><button id="load-config-btn" class="button secondary" data-native><svg aria-hidden="true" class="icon"><use href="#i-refresh"/></svg>重新加载</button><button id="save-config-btn" class="button secondary" data-native><svg aria-hidden="true" class="icon"><use href="#i-save"/></svg>保存配置</button></div></div>
+      <div id="environment-notice" class="notice" hidden><svg aria-hidden="true" class="icon"><use href="#i-info"/></svg><span>浏览器预览模式 · 目录选择、配置存储、图片整理和数据库统计仅在桌面应用中可用</span></div>
+      <div id="feedback" class="feedback" role="status" aria-live="polite" hidden></div>
+      <section id="config-tab" aria-label="整理工作台">
+        <div class="workflow" aria-label="整理流程"><span class="workflow-step current"><b>01</b> 选择目录</span><span class="workflow-line"></span><span class="workflow-step"><b>02</b> 设置分类规则</span><span class="workflow-line"></span><span class="workflow-step"><b>03</b> 预览后安心整理</span><span class="workflow-end">清晰的规则，有序的图库</span></div>
+        <form id="config-form" novalidate>
+          <fieldset id="config-fields"><legend class="sr-only">图片整理配置</legend>
+            <div class="content-grid">
+              <section class="card directory-card"><div class="section-heading"><div class="heading-icon"><svg aria-hidden="true" class="icon"><use href="#i-folder"/></svg></div><div><h2>从哪里，到哪里</h2><p>选择待整理的照片，以及它们的新家</p></div><span class="section-number">01</span></div>
+                <div class="directory-field"><label for="source-dir"><span class="field-index">来源</span>源图片目录</label><div class="path-control"><input id="source-dir" type="text" placeholder="选择或输入待整理的图片目录" autocomplete="off" spellcheck="false"><button id="select-source-btn" type="button" class="button browse" data-native><svg aria-hidden="true" class="icon"><use href="#i-folder"/></svg>选择目录</button></div><p class="field-hint">扫描此目录及其子目录中的图片</p><p class="field-error" id="source-dir-error" hidden></p></div>
+                <div class="directory-connector" aria-hidden="true"><span></span><svg aria-hidden="true" class="icon"><use href="#i-arrow"/></svg><span></span></div>
+                <div class="directory-field"><label for="target-dir"><span class="field-index destination">归档</span>目标整理目录</label><div class="path-control"><input id="target-dir" type="text" placeholder="选择或输入照片归档目录" autocomplete="off" spellcheck="false"><button id="select-target-btn" type="button" class="button browse" data-native><svg aria-hidden="true" class="icon"><use href="#i-folder"/></svg>选择目录</button></div><p class="field-hint">自动创建「分类 / 年份 / 月份」文件夹</p><p class="field-error" id="target-dir-error" hidden></p></div>
+              </section>
+              <section class="card preview-card"><div class="section-heading"><div><div class="eyebrow">A PLACE FOR EVERY MEMORY</div><h2>未来的图库，整整齐齐</h2></div><span class="badge subtle">结构示意</span></div><div class="folder-tree"><div class="tree-root"><svg aria-hidden="true" class="icon"><use href="#i-folder"/></svg><span id="preview-root">你的照片归档</span></div><div class="tree-branch"><div class="tree-item"><svg aria-hidden="true" class="icon"><use href="#i-folder"/></svg><span id="preview-category">CategoryA</span><span class="tree-tag">分类</span></div><div class="tree-subbranch"><div class="tree-item"><svg aria-hidden="true" class="icon"><use href="#i-folder"/></svg><span>2026</span><span class="tree-tag">年份</span></div><div class="tree-leaf"><svg aria-hidden="true" class="icon"><use href="#i-folder"/></svg><span>11</span><span class="tree-tag">月份</span></div></div><div class="tree-item tree-other"><svg aria-hidden="true" class="icon"><use href="#i-folder"/></svg><span id="preview-other">Other</span></div></div></div><p class="preview-caption"><svg aria-hidden="true" class="icon"><use href="#i-info"/></svg>仅展示目录结构，非实际扫描结果</p></section>
+              <section class="card rules-card"><div class="section-heading"><div class="heading-icon"><svg aria-hidden="true" class="icon"><use href="#i-sliders"/></svg></div><div><h2>给照片设定归类规则</h2><p>不区分大小写 · A 优先 · 正则留空则停用该规则</p></div><span class="section-number">02</span></div><div class="rule-headings" aria-hidden="true"><span>分类名称</span><span>文件名正则表达式</span></div>
+                <div class="rule-row"><span class="rule-letter">A</span><div class="field"><label class="sr-only" for="category-a-name">分类 A 名称</label><input id="category-a-name" type="text" maxlength="100" placeholder="CategoryA"><p class="field-error" id="category-a-name-error" hidden></p></div><div class="field"><label class="sr-only" for="category-a-regex">分类 A 正则表达式</label><input id="category-a-regex" type="text" class="code-input" placeholder="例如 ^IMG_.*" spellcheck="false"><p class="field-error" id="category-a-regex-error" hidden></p></div></div>
+                <div class="rule-row"><span class="rule-letter blue">B</span><div class="field"><label class="sr-only" for="category-b-name">分类 B 名称</label><input id="category-b-name" type="text" maxlength="100" placeholder="CategoryB"><p class="field-error" id="category-b-name-error" hidden></p></div><div class="field"><label class="sr-only" for="category-b-regex">分类 B 正则表达式</label><input id="category-b-regex" type="text" class="code-input" placeholder="例如 ^DSC_.*" spellcheck="false"><p class="field-error" id="category-b-regex-error" hidden></p></div></div>
+                <div class="default-rule"><div><label for="default-category">未匹配的照片</label><p class="field-hint">其余图片统一归入默认分类</p></div><div class="field"><input id="default-category" type="text" maxlength="100" placeholder="Other"><p class="field-error" id="default-category-error" hidden></p></div></div>
+              </section>
+              <section class="card task-card" aria-labelledby="task-heading"><div class="section-heading"><div><div class="eyebrow">ACTIVITY</div><h2 id="task-heading">任务动态</h2></div><span id="task-status" class="badge" role="status" aria-live="polite">等待开始</span></div><div class="task-empty" id="task-empty"><span class="task-illustration"><svg aria-hidden="true" class="icon"><use href="#i-photo"/></svg><span><svg aria-hidden="true" class="icon"><use href="#i-check"/></svg></span></span><strong>准备好，开启有序的图库</strong><p>运行后，这里会显示真实处理日志<br>建议先试运行，确认规则符合预期</p></div><div id="log-container" class="log-container" role="log" aria-label="整理任务日志" aria-live="off" tabindex="0" hidden></div><div id="summary-section" class="task-summary" hidden><h3>处理摘要</h3><div id="summary-content"></div></div><div class="task-footer"><svg aria-hidden="true" class="icon"><use href="#i-terminal"/></svg><span id="log-caption">暂无任务记录</span><button type="button" id="clear-log-btn" class="text-button" disabled>清空日志</button></div></section>
+              <div class="advanced-settings">
+                <details class="card advanced-card" id="database-settings"><summary><span class="summary-icon"><svg aria-hidden="true" class="icon"><use href="#i-database"/></svg></span><span><strong>数据库配置</strong><span class="summary-description">MySQL · 记录图片索引与去重信息</span></span><span class="details-label">展开设置</span><svg aria-hidden="true" class="icon chevron"><use href="#i-chevron"/></svg></summary><div class="settings-grid"><div class="field"><label for="db-host">主机地址</label><input id="db-host" type="text" placeholder="localhost"><p class="field-error" id="db-host-error" hidden></p></div><div class="field"><label for="db-port">端口</label><input id="db-port" type="number" min="1" max="65535" step="1"><p class="field-error" id="db-port-error" hidden></p></div><div class="field"><label for="db-user">用户名</label><input id="db-user" type="text" autocomplete="username"><p class="field-error" id="db-user-error" hidden></p></div><div class="field"><label for="db-password">密码</label><input id="db-password" type="password" autocomplete="current-password" placeholder="输入数据库密码"><p class="field-error" id="db-password-error" hidden></p></div><div class="field settings-wide"><label for="db-database">数据库名</label><input id="db-database" type="text"><p class="field-error" id="db-database-error" hidden></p></div></div></details>
+                <details class="card advanced-card" id="snowflake-settings"><summary><span class="summary-icon"><svg aria-hidden="true" class="icon"><use href="#i-sliders"/></svg></span><span><strong>高级设置</strong><span class="summary-description">Snowflake · 唯一图片 ID 生成参数</span></span><span class="details-label">展开设置</span><svg aria-hidden="true" class="icon chevron"><use href="#i-chevron"/></svg></summary><div class="settings-grid"><div class="field"><label for="worker-id">Worker ID</label><input id="worker-id" type="number" min="0" max="31" step="1"><p class="field-hint">工作节点编号，范围 0–31</p><p class="field-error" id="worker-id-error" hidden></p></div><div class="field"><label for="datacenter-id">Datacenter ID</label><input id="datacenter-id" type="number" min="0" max="31" step="1"><p class="field-hint">数据中心编号，范围 0–31</p><p class="field-error" id="datacenter-id-error" hidden></p></div></div></details>
+              </div>
+              <div class="safety-note"><svg aria-hidden="true" class="icon"><use href="#i-shield"/></svg><div><strong>先预览，再整理，更安心</strong><p>默认复制照片并保留源文件<br>试运行不会修改文件或写入数据库</p></div></div>
+            </div>
+          </fieldset>
+        </form>
+        <section class="action-bar" aria-label="执行整理"><div class="action-options"><label class="toggle-option"><input id="dry-run-fixed" type="checkbox" checked><span class="toggle-track" aria-hidden="true"></span><span><strong>试运行</strong><small>仅预览，不修改文件</small></span><span class="badge">推荐</span></label><span class="action-divider"></span><label class="move-option"><input id="move-files-fixed" type="checkbox"><span><strong>移动文件</strong><small>完成后删除源文件，请谨慎开启</small></span></label></div><button id="start-organize-btn" type="button" class="button primary" data-native><svg aria-hidden="true" class="icon"><use href="#i-play"/></svg><span class="btn-text">开始试运行</span><svg aria-hidden="true" class="icon"><use href="#i-arrow"/></svg></button></section>
+      </section>
+      <section id="stats-tab" aria-label="图库统计" hidden><div class="card stats-card"><div class="section-heading"><div class="heading-icon"><svg aria-hidden="true" class="icon"><use href="#i-chart"/></svg></div><div><h2>数据库中的照片</h2><p>统计来自当前数据库连接，不包含未入库的文件</p></div><button id="refresh-stats-btn" class="button secondary" data-native><svg aria-hidden="true" class="icon"><use href="#i-refresh"/></svg><span>刷新统计</span></button></div><div id="stats-container" class="stats-container" role="status" aria-live="polite"><div class="stats-empty"><svg aria-hidden="true" class="icon"><use href="#i-chart"/></svg><h3>还未读取图库数据</h3><p>请先在整理工作台配置数据库，再刷新统计</p></div></div></div></section>
+      <footer class="page-footer"><span>拾光 · 图片整理工具</span><span>少一点杂乱，多一点井然</span></footer>
+    </main>
+  </div>
+</div>
+<dialog id="confirm-dialog" aria-labelledby="confirm-title" aria-describedby="confirm-description"><form method="dialog"><span class="dialog-icon"><svg aria-hidden="true" class="icon"><use href="#i-info"/></svg></span><h2 id="confirm-title">确认操作</h2><p id="confirm-description"></p><div class="dialog-actions"><button class="button secondary" value="cancel" autofocus>取消</button><button id="confirm-accept" class="button danger" value="confirm">确认继续</button></div></form></dialog>
+</body>
+</html>
